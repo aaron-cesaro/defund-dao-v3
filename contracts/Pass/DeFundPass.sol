@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract LeagueBadge is
+contract DeFundPass is
     ERC721,
     ERC721URIStorage,
     Pausable,
@@ -19,7 +19,7 @@ contract LeagueBadge is
 
     Counters.Counter private _tokenIdCounter;
 
-    constructor() ERC721("LeagueBadge", "DFLB") {
+    constructor() ERC721("DeFund Pass", "DFPASS") {
         _pause();
     }
 
@@ -31,13 +31,24 @@ contract LeagueBadge is
         _unpause();
     }
 
-    function safeMint(address to, string memory uri) public onlyOwner {
+    function mintPass(address to, string memory uri)
+        public
+        onlyOwner
+        returns (uint256)
+    {
         _unpause();
 
-        uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
+        uint256 tokenId = _tokenIdCounter.current();
+
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
+
+        return tokenId;
+    }
+
+    function burnPass(uint256 _tokenId) public onlyOwner {
+        _burn(_tokenId);
     }
 
     function _beforeTokenTransfer(

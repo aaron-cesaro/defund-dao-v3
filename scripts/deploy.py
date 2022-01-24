@@ -1,19 +1,19 @@
-from brownie import LeagueBadge, network, config
+from brownie import DeFundPass, network, config
 from scripts.helpful_scripts import get_account, LOCAL_BLOCKCHAIN_ENVIRONMENTS
 
 
-def deploy_league_badge():
+def deploy_defund_pass():
     account = get_account()
     if (
         network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS
-        and len(LeagueBadge) > 0
+        and len(DeFundPass) > 0
     ):
-        return LeagueBadge[-1]
+        return DeFundPass[-1]
     else:
-        league_badge = LeagueBadge.deploy(
+        defund_pass = DeFundPass.deploy(
             {"from": account},
             publish_source=config["networks"][network.show_active()].get(
                 "publish_source", False
             ),
         )
-        return league_badge
+        return defund_pass
