@@ -84,11 +84,11 @@ contract DefundPassManager {
             abi.encodePacked(
                 '{"name":"'
                 "Defund Pass"
-                '", "description":"DeFund Pass", "image":"',
+                '","description":"DeFund Pass","image":"',
                 imageURI,
-                '", "attributes": [ {"trait_type":"Membership", "value":"',
+                '","attributes":[{"trait_type":"Membership","value":"',
                 _league,
-                '"},{"trait_type":"Role", "value":"',
+                '"},{"trait_type":"Role","value":"',
                 _role,
                 '"}]}'
             )
