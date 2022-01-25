@@ -10,8 +10,9 @@ def deploy_defund_pass():
     ):
         return DefundPass[-1]
     else:
+        print("Deploying DeFund Pass contract......")
         defund_pass = DefundPass.deploy(
-            {"from": account, "gas_price": "2 gwei"},
+            {"from": account, "gas_price": "4 gwei"},
             publish_source=config["networks"][network.show_active()].get(
                 "publish_source", False
             ),
@@ -26,9 +27,10 @@ def deploy_defund_pass_manager(address):
     ):
         return DefundPassManager[-1]
     else:
+        print("Deploying DeFund Pass Manager contract......")
         defund_pass = DefundPassManager.deploy(
             address,
-            {"from": account, "gas_price": "2 gwei"},
+            {"from": account, "gas_price": "4 gwei"},
             publish_source=config["networks"][network.show_active()].get(
                 "publish_source", False
             ),

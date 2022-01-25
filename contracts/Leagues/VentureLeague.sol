@@ -35,10 +35,10 @@ contract VentureLeague {
         external
         returns (uint256)
     {
-        (bool exists, uint256 memberPosition) = isLeagueMember(_member);
-        require(exists, "removeLeagueMember: member does not exists");
+        (bool found, uint256 memberPosition) = findLeagueMember(_member);
+        require(found, "removeLeagueMember: member does not exists");
 
-        defundPassManager.removeLeagueMember(_member);
+        defundPassManager.removeMember(_member);
 
         for (
             uint256 index = memberPosition;
@@ -51,7 +51,13 @@ contract VentureLeague {
         delete roles[_member];
     }
 
-    function isLeagueMember(address _member)
+    function memberExists(address _member) public view returns (bool) {
+        (bool exists, ) = findLeagueMember(_member);
+
+        return exists;
+    }
+
+    function findLeagueMember(address _member)
         internal
         view
         returns (bool, uint256)

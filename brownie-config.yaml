@@ -17,4 +17,4 @@ networks:
   development:
     publish_source: False
   rinkeby:
-    publish_source: False
+    publish_source: True

@@ -8,9 +8,7 @@ import "./DefundPass.sol";
 contract DefundPassManager {
     DefundPass public defundPass;
 
-    mapping(string => string) private tokenURIs;
     mapping(address => uint256) public membersIds;
-    mapping(address => string) public leagueMembers;
 
     constructor(address _defundPass) {
         defundPass = DefundPass(_defundPass);
@@ -30,7 +28,7 @@ contract DefundPassManager {
     {
         require(
             !isMember(_member),
-            "addSimpleMember: address is already a member"
+            "addStandardMember: address is already a member"
         );
         string memory tokenURI = formatTokenURI(
             _passImg,
@@ -45,65 +43,43 @@ contract DefundPassManager {
         return tokenId;
     }
 
-    function removeStandardMember(address _member) external {
-        require(
-            isMember(_member),
-            "removeSimpleMember: address is not a member"
-        );
-        uint256 tokenId = membersIds[_member];
-        defundPass.burnPass(tokenId);
-
-        delete membersIds[_member];
-    }
-
     function addLeagueMember(
         address _member,
         string memory _passImg,
         string memory _league,
         string memory _role
     ) external returns (uint256) {
-        require(isMember(_member), "addLeagueMember: address is not a member");
+        require(bytes(_role).length > 0, "addLeagueMember: invalid role");
         require(
-            bytes(leagueMembers[_member]).length <= 0,
-            "addLeagueMember: address already belongs to a League"
+            isMember(_member),
+            "addLeagueMember: only members can access leagues"
         );
+
+        // remove current membership
+        removeMember(_member);
 
         string memory tokenURI = formatTokenURI(_passImg, _league, _role);
 
-        require(
-            bytes(tokenURI).length > 0,
-            "addLeagueMember: League not valid"
-        );
         uint256 tokenId = defundPass.mintPass(_member, tokenURI);
 
         membersIds[_member] = tokenId;
-        leagueMembers[_member] = _league;
 
         return tokenId;
     }
 
-    function removeLeagueMember(address _member) external {
-        require(
-            isMember(_member),
-            "removeLeagueMember: address is not a member"
-        );
-        require(
-            bytes(leagueMembers[_member]).length > 0,
-            "removeLeagueMember: address does not belong to the League"
-        );
-
+    function removeMember(address _member) public {
+        require(isMember(_member), "removeMember: address is not a member");
         uint256 tokenId = membersIds[_member];
         defundPass.burnPass(tokenId);
 
         delete membersIds[_member];
-        delete leagueMembers[_member];
     }
 
     function formatTokenURI(
         string memory imageURI,
         string memory _league,
         string memory _role
-    ) public pure returns (string memory) {
+    ) internal pure returns (string memory) {
         string memory json = string(
             abi.encodePacked(
                 '{"name":"'
