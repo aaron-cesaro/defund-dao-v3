@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 from brownie import accounts, network, config
 from metadata import league_badge_metadata_template
 import ipfshttpclient

@@ -2,53 +2,63 @@
 
 pragma solidity ^0.8;
 
-import "./DeFundPass.sol";
+import "./DefundPass.sol";
 
-contract DeFundPassManager {
-    DeFundPass public deFundPass;
+contract PassManager {
+    DefundPass public defundPass;
 
     mapping(string => string) private tokenURIs;
+
     mapping(address => uint256) public membersIds;
     mapping(address => string) public leagueMembers;
 
-    constructor(address _deFundPass) {
-        deFundPass = DeFundPass(_deFundPass);
+    enum Membership {
+        Simple,
+        Venture,
+        Treasury,
+        Development,
+        Compliance
+    }
+
+    constructor(address _defundPass) {
+        defundPass = DefundPass(_defundPass);
     }
 
     function isMember(address _member) public view returns (bool) {
-        return deFundPass.balanceOf(_member) > 0;
+        return defundPass.balanceOf(_member) > 0;
     }
 
     function ownerOf(uint256 _tokenId) public view returns (address) {
-        return deFundPass.ownerOf(_tokenId);
+        return defundPass.ownerOf(_tokenId);
     }
 
-    function addSimpleMember(address _member) public returns (uint256) {
+    function addSimpleMember(address _member) external returns (uint256) {
         require(
             !isMember(_member),
             "addSimpleMember: address is already a member"
         );
         string memory tokenURI = tokenURIs["member"];
-        uint256 tokenId = deFundPass.mintPass(_member, tokenURI);
+
+        uint256 tokenId = defundPass.mintPass(_member, tokenURI);
 
         membersIds[_member] = tokenId;
 
         return tokenId;
     }
 
-    function removeSimpleMember(address _member) public {
+    function removeSimpleMember(address _member) external {
         require(
             isMember(_member),
             "removeSimpleMember: address is not a member"
         );
         uint256 tokenId = membersIds[_member];
-        deFundPass.burnPass(tokenId);
+        defundPass.burnPass(tokenId);
 
         delete membersIds[_member];
     }
 
     function addLeagueMember(address _member, string memory _league)
-        public
+        external
         returns (uint256)
     {
         require(isMember(_member), "addLeagueMember: address is not a member");
@@ -63,7 +73,7 @@ contract DeFundPassManager {
             bytes(tokenURI).length > 0,
             "addLeagueMember: League not valid"
         );
-        uint256 tokenId = deFundPass.mintPass(_member, tokenURI);
+        uint256 tokenId = defundPass.mintPass(_member, tokenURI);
 
         membersIds[_member] = tokenId;
         leagueMembers[_member] = _league;
@@ -71,7 +81,9 @@ contract DeFundPassManager {
         return tokenId;
     }
 
-    function removeLeagueMember(address _member, string memory _league) public {
+    function removeLeagueMember(address _member, string memory _league)
+        external
+    {
         require(
             isMember(_member),
             "removeLeagueMember: address is not a member"
@@ -82,7 +94,7 @@ contract DeFundPassManager {
         );
 
         uint256 tokenId = membersIds[_member];
-        deFundPass.burnPass(tokenId);
+        defundPass.burnPass(tokenId);
 
         delete membersIds[_member];
         delete leagueMembers[_member];
