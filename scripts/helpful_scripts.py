@@ -19,7 +19,7 @@ def get_account(index=None, id=None):
     if network.show_active() in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
         return accounts[0]
     else:
-        return accounts.add(config["wallet"]["from_key"])
+        return accounts.add(config["wallets"]["from_key"])
 
 
 def write_metadata(token_id, league, league_badge_contract, league_manager_contract):

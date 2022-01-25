@@ -2,12 +2,12 @@
 
 pragma solidity ^0.8;
 
-import "../Pass/DeFundPassManager.sol";
+import "../Pass/DefundPassManager.sol";
 
 contract ComplianceLeague {
-    DeFundPassManager public defundPassManager;
+    DefundPassManager public defundPassManager;
 
     constructor(address _defundPassManager) {
-        defundPassManager = DeFundPassManager(_defundPassManager);
+        defundPassManager = DefundPassManager(_defundPassManager);
     }
 }
