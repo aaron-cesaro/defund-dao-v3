@@ -1,4 +1,4 @@
-from brownie import DefundPass, DefundPassManager, network, config
+from brownie import DefundPass, DefundPassManager, VentureLeague, network, config
 from scripts.helpful_scripts import get_account, LOCAL_BLOCKCHAIN_ENVIRONMENTS
 
 
@@ -12,7 +12,7 @@ def deploy_defund_pass():
     else:
         print("Deploying DeFund Pass contract......")
         defund_pass = DefundPass.deploy(
-            {"from": account, "gas_price": "4 gwei"},
+            {"from": account},
             publish_source=config["networks"][network.show_active()].get(
                 "publish_source", False
             ),
@@ -22,15 +22,35 @@ def deploy_defund_pass():
 
 def deploy_defund_pass_manager(address):
     account = get_account()
-    if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS and (
-        len(DefundPassManager) > 0 and len(DefundPass) > 0
+    if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS and len(
+        DefundPassManager
     ):
         return DefundPassManager[-1]
     else:
         print("Deploying DeFund Pass Manager contract......")
         defund_pass = DefundPassManager.deploy(
             address,
-            {"from": account, "gas_price": "4 gwei"},
+            {"from": account},
+            publish_source=config["networks"][network.show_active()].get(
+                "publish_source", False
+            ),
+        )
+    return defund_pass
+
+
+def deploy_venture_league(address, league_img):
+    account = get_account()
+    if (
+        network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS
+        and len(VentureLeague) > 0
+    ):
+        return VentureLeague[-1]
+    else:
+        print("Deploying Venture League contract......")
+        defund_pass = VentureLeague.deploy(
+            address,
+            league_img,
+            {"from": account},
             publish_source=config["networks"][network.show_active()].get(
                 "publish_source", False
             ),

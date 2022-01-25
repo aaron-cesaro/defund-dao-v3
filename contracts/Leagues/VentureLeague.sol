@@ -20,7 +20,7 @@ contract VentureLeague {
         external
         returns (uint256)
     {
-        defundPassManager.addLeagueMember(
+        uint256 tokenId = defundPassManager.addLeagueMember(
             _member,
             leagueImg,
             "Venture League",
@@ -29,6 +29,8 @@ contract VentureLeague {
 
         members.push(_member);
         roles[_member] = _role;
+
+        return tokenId;
     }
 
     function removeLeagueMember(address _member, string memory _role)
@@ -49,6 +51,10 @@ contract VentureLeague {
         }
         members.pop();
         delete roles[_member];
+    }
+
+    function getRole(address _member) external view returns (string memory) {
+        return roles[_member];
     }
 
     function memberExists(address _member) public view returns (bool) {
