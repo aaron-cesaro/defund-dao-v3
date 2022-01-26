@@ -79,7 +79,7 @@ contract VentureLeague {
     }
 
     function findLeagueMember(address _member)
-        internal
+        public
         view
         returns (bool, uint256)
     {

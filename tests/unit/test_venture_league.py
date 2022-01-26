@@ -62,3 +62,52 @@ def test_member_not_exists(IMAGE_PATH, VENTURE_LEAGUE_ROLES):
     member_exists = venture_league.memberExists(accounts[0])
     # Assert
     assert member_exists == False
+
+
+def test_member_exists_invalid_address(IMAGE_PATH, VENTURE_LEAGUE_ROLES):
+    # Arrange
+    if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
+        pytest.skip()
+    account = get_account()
+    defund_pass = deploy_defund_pass()
+    defund_pass_manager = deploy_defund_pass_manager(defund_pass.address)
+    league_image = upload_to_ipfs(IMAGE_PATH.format("venture"))
+    venture_league = deploy_venture_league(
+        defund_pass_manager.address, league_image, VENTURE_LEAGUE_ROLES
+    )
+    # Act / Assert
+    with pytest.raises(exceptions.VirtualMachineError):
+        venture_league.memberExists("0x0000000000000000000000000000000000000000")
+
+
+def test_find_league_member_not_exists(IMAGE_PATH, VENTURE_LEAGUE_ROLES):
+    # Arrange
+    if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
+        pytest.skip()
+    account = get_account()
+    defund_pass = deploy_defund_pass()
+    defund_pass_manager = deploy_defund_pass_manager(defund_pass.address)
+    league_image = upload_to_ipfs(IMAGE_PATH.format("venture"))
+    venture_league = deploy_venture_league(
+        defund_pass_manager.address, league_image, VENTURE_LEAGUE_ROLES
+    )
+    # Act
+    member_exists, _ = venture_league.findLeagueMember(accounts[0])
+    # Assert
+    assert member_exists == False
+
+
+def test_find_league_member_invalid_address(IMAGE_PATH, VENTURE_LEAGUE_ROLES):
+    # Arrange
+    if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
+        pytest.skip()
+    account = get_account()
+    defund_pass = deploy_defund_pass()
+    defund_pass_manager = deploy_defund_pass_manager(defund_pass.address)
+    league_image = upload_to_ipfs(IMAGE_PATH.format("venture"))
+    venture_league = deploy_venture_league(
+        defund_pass_manager.address, league_image, VENTURE_LEAGUE_ROLES
+    )
+    # Act / Assert
+    with pytest.raises(exceptions.VirtualMachineError):
+        venture_league.findLeagueMember("0x0000000000000000000000000000000000000000")
