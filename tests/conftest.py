@@ -7,5 +7,10 @@ def TOKEN_URI():
 
 
 @pytest.fixture()
+def VENTURE_LEAGUE_ROLES():
+    return ["Analyst", "Associate"]
+
+
+@pytest.fixture()
 def IMAGE_PATH():
     return "./img/{}.jpeg"

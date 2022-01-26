@@ -1,5 +1,6 @@
 from scripts.helpful_scripts import get_account, upload_to_ipfs, OPENSEA_FORMAT
 from scripts.deploy import deploy_defund_pass, deploy_defund_pass_manager
+from brownie import DefundPassV2
 
 
 def main():

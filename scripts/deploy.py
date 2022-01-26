@@ -38,7 +38,7 @@ def deploy_defund_pass_manager(address):
     return defund_pass
 
 
-def deploy_venture_league(address, league_img):
+def deploy_venture_league(address, league_img, roles):
     account = get_account()
     if (
         network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS
@@ -47,12 +47,13 @@ def deploy_venture_league(address, league_img):
         return VentureLeague[-1]
     else:
         print("Deploying Venture League contract......")
-        defund_pass = VentureLeague.deploy(
+        venture_league = VentureLeague.deploy(
             address,
             league_img,
+            roles,
             {"from": account},
             publish_source=config["networks"][network.show_active()].get(
                 "publish_source", False
             ),
         )
-    return defund_pass
+    return venture_league

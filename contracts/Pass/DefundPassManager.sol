@@ -46,7 +46,7 @@ contract DefundPassManager {
     function addLeagueMember(
         address _member,
         string memory _passImg,
-        string memory _league,
+        string memory _membership,
         string memory _role
     ) external returns (uint256) {
         require(bytes(_role).length > 0, "addLeagueMember: invalid role");
@@ -58,7 +58,7 @@ contract DefundPassManager {
         // remove current membership
         removeMember(_member);
 
-        string memory tokenURI = formatTokenURI(_passImg, _league, _role);
+        string memory tokenURI = formatTokenURI(_passImg, _membership, _role);
 
         uint256 tokenId = defundPass.mintPass(_member, tokenURI);
 
@@ -77,17 +77,17 @@ contract DefundPassManager {
 
     function formatTokenURI(
         string memory imageURI,
-        string memory _league,
+        string memory _membership,
         string memory _role
     ) internal pure returns (string memory) {
         string memory json = string(
             abi.encodePacked(
-                '{"name":"'
-                "Defund Pass"
+                '{"name":"Defund Pass - ',
+                _membership,
                 '","description":"DeFund Pass","image":"',
                 imageURI,
                 '","attributes":[{"trait_type":"Membership","value":"',
-                _league,
+                _membership,
                 '"},{"trait_type":"Role","value":"',
                 _role,
                 '"}]}'
