@@ -88,5 +88,23 @@ Each proposal type represents a current state variation request on a specific ar
 Operators are part of the company workforce. They perform the work needed to maintain and improve DeFund. Operators are actively paid in DEVC tokens for their effort and the work performed is always monitored and organized by the Leagues.
 
 ## Pass
+
+
+### Description
+The DeFund Pass is a NFT based badge that allows members to make proposals, vote, join specific and regulated channels on the Discord server, and in general to make an impact on the DeFund ecosystem. Each NFT contains its own information metadata that resides both on-chain and on IPFS.
+
+Thanks to this hybrid approach all information concerning the Pass type and its details is stored on-chain in the form of a *base64* encoded *json* file. On the other hand, the NFT images are stored on IPFS due to their high storage size.
+
+#### Specs
+1. Each Role, also the standard _Member_ role, needs its own Pass to access and interact with the DeFund ecosystem.
+2. All Roles in the same League have the same Pass, that only differs for the attributes it contains in its metadata.
+3. Each pass is minted or burned through the voting mechanism.
+4. Pass ids start from 1 (there is no zero id). The id is incremented every time a new Pass is minted
+5. By design, Pass owners are not allowd to mint, transfer, or burn any Pass.
+6. Eeach Pass, as well as its owner, is unique by definition. No Pass can be owned by more than one DeFund member.
+7. No one can transfer a Pass, not even through a proposal. In case of a new member is selected and another member with same role (and League) is removed, the Pass from the removed member is burned, and the new Pass for the new member is minted.
+8. Each Member can own at most one Pass. No member can have more than one role throughout the entire DeFund ecosystem. This applys to League as well.
+9. Roles can be added and deleted through the voting mechanism. Roles addition and deletion can be executed directly by the Smart Contract, after the appropriate proposal has been passed.
+
 ## Governance
 ## Token

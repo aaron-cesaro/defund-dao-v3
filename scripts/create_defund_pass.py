@@ -1,6 +1,5 @@
 from scripts.helpful_scripts import get_account, upload_to_ipfs, OPENSEA_FORMAT
 from scripts.deploy import deploy_defund_pass, deploy_defund_pass_manager
-from brownie import DefundPassV2
 
 
 def main():
@@ -16,7 +15,7 @@ def add_standard_member():
             defund_pass_manager.address, {"from": account, "gas_price": "2 gwei"}
         )
         tx_ownership.wait(1)
-    badge_awardee = "0xAFa5D1e5fb62851a73AC585540ddAEB35828ACDA"
+    badge_awardee = "0xBB293e429F420757aF10c8B12456B70E61ae3CfC"
     token_image = upload_to_ipfs("./img/{}.jpeg".format("venture"))
     tx = defund_pass_manager.addStandardMember(
         badge_awardee, token_image, {"from": account, "gas_price": "2 gwei"}

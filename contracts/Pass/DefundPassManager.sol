@@ -6,9 +6,9 @@ import "@brechtpd/base64.sol";
 import "./DefundPass.sol";
 
 contract DefundPassManager {
-    DefundPass public defundPass;
-
     mapping(address => uint256) public membersIds;
+    
+    DefundPass public defundPass;
 
     constructor(address _defundPass) {
         defundPass = DefundPass(_defundPass);
@@ -30,11 +30,7 @@ contract DefundPassManager {
             !isMember(_member),
             "addStandardMember: address is already a member"
         );
-        string memory tokenURI = formatTokenURI(
-            _passImg,
-            "Standard",
-            "Investor"
-        );
+        string memory tokenURI = formatTokenURI(_passImg, "Standard", "Member");
 
         uint256 tokenId = defundPass.mintPass(_member, tokenURI);
 
