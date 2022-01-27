@@ -9,10 +9,15 @@ contract VentureLeague {
 
     string private leagueImg;
     address[] private members;
-    string[] private roles;
-    mapping(address => string) private memberRoles;
+    bytes32[] private roles;
+    mapping(address => bytes32) private memberRoles;
 
-    string public constant LEAGUE_NAME = "Venture League";
+    string public constant LEAGUE_NAME = "VENTURE_LEAGUE";
+
+    event RoleAdded(string indexed _role);
+    event RoleRemoved(string indexed _role);
+    event MemberAdded(address indexed _member, string indexed _role);
+    event MemberRemoved(address indexed _member);
 
     constructor(
         address _defundPassManager,
@@ -22,42 +27,49 @@ contract VentureLeague {
         defundPassManager = DefundPassManager(_defundPassManager);
         leagueImg = _leagueImg;
 
-        roles = _roles;
+        for (uint256 index = 0; index < _roles.length; index++) {
+            roles.push(keccak256(bytes(_roles[index])));
+        }
     }
 
-    function addLeagueMember(address _member, uint256 _roleIndex)
+    function addLeagueMember(address _member, string memory _role)
         external
         returns (uint256)
     {
-        require(_roleIndex <= roles.length, "addLeagueMember: invalid role");
+        require(
+            bytes(_role).length >= 2,
+            "addLeagueMember: invalid role format"
+        );
+        (bool roleExists, int256 rolePosition) = hasRole(_role);
+        require(roleExists, "addLeagueMember: invalid role");
         require(
             !memberExists(_member),
             "addLeagueMember: member already present"
         );
 
-        string memory roleName = roles[_roleIndex];
-
         uint256 tokenId = defundPassManager.addLeagueMember(
             _member,
             leagueImg,
             LEAGUE_NAME,
-            roleName
+            _role
         );
 
         members.push(_member);
-        memberRoles[_member] = roleName;
+        memberRoles[_member] = roles[uint256(rolePosition)];
+
+        emit MemberAdded(_member, _role);
 
         return tokenId;
     }
 
     function removeLeagueMember(address _member) external returns (uint256) {
-        (bool found, uint256 memberPosition) = findLeagueMember(_member);
+        (bool found, int256 memberPosition) = findLeagueMember(_member);
         require(found, "removeLeagueMember: member does not exists");
 
         defundPassManager.removeMember(_member);
 
         for (
-            uint256 index = memberPosition;
+            uint256 index = uint256(memberPosition);
             index < members.length - 1;
             index++
         ) {
@@ -65,11 +77,47 @@ contract VentureLeague {
         }
         members.pop();
         delete memberRoles[_member];
+
+        emit MemberRemoved(_member);
     }
 
-    function getRole(address _member) external view returns (string memory) {
-        require(_member != address(0), "getRole: invalid address");
-        return memberRoles[_member];
+    function addRole(string memory _role) external {
+        (bool exists, ) = hasRole(_role);
+        require(!exists, "addRole: role already exists");
+        roles.push(keccak256(bytes(_role)));
+
+        emit RoleAdded(_role);
+    }
+
+    function removeRole(string memory _role) external {
+        (bool exists, int256 rolePosition) = hasRole(_role);
+        require(
+            exists &&
+                rolePosition >= 0 &&
+                uint256(rolePosition) <= roles.length,
+            "removeRole: role does not exist"
+        );
+        for (
+            uint256 index = uint256(rolePosition);
+            index < roles.length - 1;
+            index++
+        ) {
+            roles[index] = roles[index + 1];
+        }
+        roles.pop();
+    }
+
+    function hasRole(string memory _role) public view returns (bool, int256) {
+        require(bytes(_role).length > 4, "hasRole: invalid role");
+        bool found = false;
+        int256 roleIndex = -1;
+        for (uint256 index = 0; index < roles.length && !found; index++) {
+            if (roles[index] == keccak256(bytes(_role))) {
+                found = true;
+                roleIndex = int256(index);
+            }
+        }
+        return (found, roleIndex);
     }
 
     function memberExists(address _member) public view returns (bool) {
@@ -81,15 +129,15 @@ contract VentureLeague {
     function findLeagueMember(address _member)
         public
         view
-        returns (bool, uint256)
+        returns (bool, int256)
     {
         require(_member != address(0), "findLeagueMember: invalid address");
-        uint256 memberPosition = 0;
         bool found = false;
+        int256 memberPosition = -1;
         for (uint256 index = 0; index < members.length && !found; index++) {
             if (members[index] == _member) {
                 found = true;
-                memberPosition = index;
+                memberPosition = int256(index);
             }
         }
 

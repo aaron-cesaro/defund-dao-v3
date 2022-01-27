@@ -8,7 +8,7 @@ def TOKEN_URI():
 
 @pytest.fixture()
 def VENTURE_LEAGUE_ROLES():
-    return ["Analyst", "Associate"]
+    return ["ANALYST", "ASSOCIATE"]
 
 
 @pytest.fixture()

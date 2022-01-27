@@ -12,6 +12,9 @@ contract DefundPass is ERC721URIStorage, ERC721Burnable, Pausable, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
+    event PassMinted(address indexed _to, uint256 indexed _tokenId);
+    event PassBurned(uint256 indexed _tokenId);
+
     constructor() ERC721("DeFund Pass", "DFPS") {
         _pause();
     }
@@ -37,11 +40,15 @@ contract DefundPass is ERC721URIStorage, ERC721Burnable, Pausable, Ownable {
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
 
+        emit PassMinted(to, tokenId);
+
         return tokenId;
     }
 
     function burnPass(uint256 _tokenId) public onlyOwner {
         _burn(_tokenId);
+
+        emit PassBurned(_tokenId);
     }
 
     function _beforeTokenTransfer(

@@ -1,4 +1,10 @@
-from brownie import DefundPass, DefundPassManager, VentureLeague, network, config
+from brownie import (
+    DefundPass,
+    DefundPassManager,
+    VentureLeague,
+    network,
+    config,
+)
 from scripts.helpful_scripts import get_account, LOCAL_BLOCKCHAIN_ENVIRONMENTS
 
 

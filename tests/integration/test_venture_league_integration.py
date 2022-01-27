@@ -1,4 +1,5 @@
 from queue import Empty
+from eth_typing import HexStr
 import pytest
 from brownie import network, exceptions
 from scripts.helpful_scripts import (
@@ -11,6 +12,7 @@ from scripts.deploy import (
     deploy_defund_pass_manager,
     deploy_venture_league,
 )
+import base64
 
 
 def test_add_venture_league_member(IMAGE_PATH, VENTURE_LEAGUE_ROLES):
@@ -26,7 +28,7 @@ def test_add_venture_league_member(IMAGE_PATH, VENTURE_LEAGUE_ROLES):
     venture_league = deploy_venture_league(
         defund_pass_manager.address, league_image, VENTURE_LEAGUE_ROLES
     )
-    role = 0  # Analyst
+    role = VENTURE_LEAGUE_ROLES[0]  # Analyst
     # Act
     tx_add_standard_member = defund_pass_manager.addStandardMember(
         badge_awardee, league_image, {"from": account}
@@ -40,7 +42,6 @@ def test_add_venture_league_member(IMAGE_PATH, VENTURE_LEAGUE_ROLES):
         tx_add_venture_league_member.return_value
     )
     assert venture_league.memberExists(badge_awardee)
-    assert venture_league.getRole(badge_awardee) == VENTURE_LEAGUE_ROLES[role]
 
 
 def test_remove_venture_league_member(IMAGE_PATH, VENTURE_LEAGUE_ROLES):
@@ -56,7 +57,7 @@ def test_remove_venture_league_member(IMAGE_PATH, VENTURE_LEAGUE_ROLES):
     venture_league = deploy_venture_league(
         defund_pass_manager.address, league_image, VENTURE_LEAGUE_ROLES
     )
-    role = 0  # Analyst
+    role = VENTURE_LEAGUE_ROLES[0]  # Analyst
     # Act
     tx_add_standard_member = defund_pass_manager.addStandardMember(
         badge_awardee, league_image, {"from": account}
@@ -69,8 +70,5 @@ def test_remove_venture_league_member(IMAGE_PATH, VENTURE_LEAGUE_ROLES):
     # Assert
     assert defund_pass_manager.isMember(badge_awardee) is False
     assert not venture_league.memberExists(badge_awardee)
-    assert venture_league.getRole(badge_awardee) == ""
     with pytest.raises(exceptions.VirtualMachineError):
-        badge_awardee == defund_pass_manager.ownerOf(
-            tx_add_venture_league_member.return_value
-        )
+        defund_pass_manager.ownerOf(tx_add_venture_league_member.return_value)

@@ -7,8 +7,12 @@ import "./DefundPass.sol";
 
 contract DefundPassManager {
     mapping(address => uint256) public membersIds;
-    
+
     DefundPass public defundPass;
+
+    event StandardMemberAdded(address indexed _member);
+    event LeagueMemberAdded(address indexed _member);
+    event StandardMemberRemoved(address indexed _member);
 
     constructor(address _defundPass) {
         defundPass = DefundPass(_defundPass);
@@ -30,11 +34,13 @@ contract DefundPassManager {
             !isMember(_member),
             "addStandardMember: address is already a member"
         );
-        string memory tokenURI = formatTokenURI(_passImg, "Standard", "Member");
+        string memory tokenURI = formatTokenURI(_passImg, "STANDARD", "MEMBER");
 
         uint256 tokenId = defundPass.mintPass(_member, tokenURI);
 
         membersIds[_member] = tokenId;
+
+        emit StandardMemberAdded(_member);
 
         return tokenId;
     }
@@ -60,6 +66,8 @@ contract DefundPassManager {
 
         membersIds[_member] = tokenId;
 
+        emit LeagueMemberAdded(_member);
+
         return tokenId;
     }
 
@@ -69,6 +77,8 @@ contract DefundPassManager {
         defundPass.burnPass(tokenId);
 
         delete membersIds[_member];
+
+        emit StandardMemberRemoved(_member);
     }
 
     function formatTokenURI(
