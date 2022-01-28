@@ -2,12 +2,14 @@
 
 pragma solidity ^0.8;
 
-import "../Pass/DefundPassManager.sol";
+import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
+import "../Pass/DefundPass.sol";
 
-contract VentureLeague {
-    DefundPassManager public defundPassManager;
+contract VentureLeague is AccessControlEnumerable {
+    bytes32 public constant ANALYST_ROLE = keccak256("ANALYST_ROLE");
+    DefundPass public defundPass;
 
-    string private leagueImg;
+    string private ventureLeagueImg;
     address[] private members;
     bytes32[] private roles;
     mapping(address => bytes32) private memberRoles;
@@ -16,131 +18,57 @@ contract VentureLeague {
 
     event RoleAdded(string indexed _role);
     event RoleRemoved(string indexed _role);
-    event MemberAdded(address indexed _member, string indexed _role);
+    event MemberAdded(address indexed _member);
     event MemberRemoved(address indexed _member);
 
-    constructor(
-        address _defundPassManager,
-        string memory _leagueImg,
-        string[] memory _roles
-    ) {
-        defundPassManager = DefundPassManager(_defundPassManager);
-        leagueImg = _leagueImg;
+    constructor(address _defundPass, string memory _ventureLeagueImg) {
+        defundPass = DefundPass(_defundPass);
+        ventureLeagueImg = _ventureLeagueImg;
 
-        for (uint256 index = 0; index < _roles.length; index++) {
-            roles.push(keccak256(bytes(_roles[index])));
-        }
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(ANALYST_ROLE, msg.sender);
     }
 
-    function addLeagueMember(address _member, string memory _role)
+    function addLeagueMember(address _member)
         external
+        onlyRole(DEFAULT_ADMIN_ROLE)
         returns (uint256)
     {
         require(
-            bytes(_role).length >= 2,
-            "addLeagueMember: invalid role format"
-        );
-        (bool roleExists, int256 rolePosition) = hasRole(_role);
-        require(roleExists, "addLeagueMember: invalid role");
-        require(
-            !memberExists(_member),
-            "addLeagueMember: member already present"
+            !hasRole(ANALYST_ROLE, _member),
+            "addLeagueMember: address is already a member"
         );
 
-        uint256 tokenId = defundPassManager.addLeagueMember(
+        uint256 tokenId = defundPass.mintLeaguePass(
             _member,
-            leagueImg,
+            ventureLeagueImg,
             LEAGUE_NAME,
-            _role
+            "ANALYST"
         );
 
-        members.push(_member);
-        memberRoles[_member] = roles[uint256(rolePosition)];
-
-        emit MemberAdded(_member, _role);
+        emit MemberAdded(_member);
 
         return tokenId;
     }
 
-    function removeLeagueMember(address _member) external returns (uint256) {
-        (bool found, int256 memberPosition) = findLeagueMember(_member);
-        require(found, "removeLeagueMember: member does not exists");
-
-        defundPassManager.removeMember(_member);
-
-        for (
-            uint256 index = uint256(memberPosition);
-            index < members.length - 1;
-            index++
-        ) {
-            members[index] = members[index + 1];
-        }
-        members.pop();
-        delete memberRoles[_member];
-
-        emit MemberRemoved(_member);
-    }
-
-    function addRole(string memory _role) external {
-        (bool exists, ) = hasRole(_role);
-        require(!exists, "addRole: role already exists");
-        roles.push(keccak256(bytes(_role)));
-
-        emit RoleAdded(_role);
-    }
-
-    function removeRole(string memory _role) external {
-        (bool exists, int256 rolePosition) = hasRole(_role);
+    function removeLeagueMember(uint256 _tokenId) external returns (uint256) {
+        address member = defundPass.ownerOf(_tokenId);
         require(
-            exists &&
-                rolePosition >= 0 &&
-                uint256(rolePosition) <= roles.length,
-            "removeRole: role does not exist"
+            hasRole(ANALYST_ROLE, member),
+            "addLeagueMember: address is already a member"
         );
-        for (
-            uint256 index = uint256(rolePosition);
-            index < roles.length - 1;
-            index++
-        ) {
-            roles[index] = roles[index + 1];
-        }
-        roles.pop();
+
+        defundPass.burnLeaguePass(_tokenId);
+
+        emit MemberRemoved(member);
     }
 
-    function hasRole(string memory _role) public view returns (bool, int256) {
-        require(bytes(_role).length > 4, "hasRole: invalid role");
-        bool found = false;
-        int256 roleIndex = -1;
-        for (uint256 index = 0; index < roles.length && !found; index++) {
-            if (roles[index] == keccak256(bytes(_role))) {
-                found = true;
-                roleIndex = int256(index);
-            }
-        }
-        return (found, roleIndex);
-    }
-
-    function memberExists(address _member) public view returns (bool) {
-        (bool exists, ) = findLeagueMember(_member);
-
-        return exists;
-    }
-
-    function findLeagueMember(address _member)
+    function supportsInterface(bytes4 interfaceId)
         public
         view
-        returns (bool, int256)
+        override
+        returns (bool)
     {
-        require(_member != address(0), "findLeagueMember: invalid address");
-        bool found = false;
-        int256 memberPosition = -1;
-        for (uint256 index = 0; index < members.length && !found; index++) {
-            if (members[index] == _member) {
-                found = true;
-                memberPosition = int256(index);
-            }
-        }
-
-        return (found, memberPosition);
+        return super.supportsInterface(interfaceId);
     }
 }
