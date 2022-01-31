@@ -8,6 +8,7 @@ import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@brechtpd/base64.sol";
 
+/** @title DeFund Pass */
 contract DefundPass is
     ERC721URIStorage,
     ERC721Burnable,
@@ -23,11 +24,16 @@ contract DefundPass is
     bytes32 public constant LEAGUE_ROLE = keccak256("LEAGUE_ROLE");
 
     mapping(address => bool) private members;
+    uint256 private membersCount;
 
     event PassMinted(address indexed _to, uint256 indexed _tokenId);
     event PassBurned(uint256 indexed _tokenId);
     event LeaguePassMinted(address indexed _member, uint256 indexed _tokenId);
     event LeaguePassBurned(uint256 indexed _tokenId);
+
+    /** @dev Contructor takes one arguments, initializes all basic roles, and pause the contract
+     * @param _standardPassImg the ipfs url used by the standard Pass images
+     */
 
     constructor(string memory _standardPassImg) ERC721("DeFund Pass", "DFPS") {
         standardPassImg = _standardPassImg;
@@ -38,28 +44,13 @@ contract DefundPass is
         _pause();
     }
 
-    function pause() public onlyRole(DEFAULT_ADMIN_ROLE) {
-        _pause();
-    }
-
-    function unpause() public onlyRole(DEFAULT_ADMIN_ROLE) {
-        _unpause();
-    }
-
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(ERC721, AccessControlEnumerable)
-        returns (bool)
-    {
-        return super.supportsInterface(interfaceId);
-    }
-
-    receive() external payable {
-        // Thank you for your donation! But we cannot accept it :)
-        payable(msg.sender).transfer(msg.value);
-    }
-
+    /**
+     * @notice Use this function to buy (mint) a standard DeFund Pass.
+     *         No one can own more than one Standard Pass and cost of each Standard Pass is 1 AVAX.
+     * @dev mint a new DeFund Pass, using the standardPassImage used by this contract.
+     * @param to the address that will have ownership on the minted Pass
+     * @return the Pass Token Id
+     */
     function buyPass(address to) external payable returns (uint256) {
         require(!isMember(to), "buyPass: address is already a member");
         require(
@@ -83,6 +74,7 @@ contract DefundPass is
         _setTokenURI(tokenId, _tokenURI);
 
         members[to] = true;
+        membersCount++;
 
         _tokenIdCounter.increment();
 
@@ -91,6 +83,12 @@ contract DefundPass is
         return tokenId;
     }
 
+    /**
+     * @notice Use this function to burn mint a standard DeFund Pass.
+     *         Only the Pass owner or the Admin can burn a Pass.
+     * @dev if '_tokenId' does not exists the function reverts.
+     * @param _tokenId the Token Id to burn
+     */
     function burnPass(uint256 _tokenId) public {
         address passOwner = ownerOf(_tokenId);
         require(
@@ -102,10 +100,22 @@ contract DefundPass is
         _burn(_tokenId);
 
         delete members[passOwner];
+        membersCount--;
 
         emit PassBurned(_tokenId);
     }
 
+    /**
+     * @notice Use this function to mint a League DeFund Pass.
+     *         All League members must own a Standard Pass before been able to be awarded a League Pass.
+     *         No one can own more than one League Pass and League Passes have no costs.
+     * @dev mint a new DeFund Pass, using the standardPassImage used by this contract.
+     * @param to the address that will have ownership on the minted Pass
+     * @param _leaguePassImg the ipfs url of the image representing the league that is minting the pass
+     * @param _league league that is minting the pass
+     * @param _role role that the new member will assume within the League
+     * @return the League Pass Token Id
+     */
     function mintLeaguePass(
         address to,
         string calldata _leaguePassImg,
@@ -162,17 +172,21 @@ contract DefundPass is
         return members[_address];
     }
 
+    function getMembersCount() public view returns (uint256) {
+        return membersCount;
+    }
+
     function _beforeTokenTransfer(
         address from,
         address to,
         uint256 tokenId
     ) internal override whenNotPaused {
         super._beforeTokenTransfer(from, to, tokenId);
-
-        if (to != address(0)) {
+        // preventing transfer
+        if (from != address(0) && to != address(0)) {
             require(
-                balanceOf(to) == 0,
-                "_beforeTokenTransfer: members cannot have more than one badge"
+                hasRole(DEFAULT_ADMIN_ROLE, msg.sender),
+                "_beforeTokenTransfer: only admin can transfer passes"
             );
         }
     }
@@ -183,39 +197,7 @@ contract DefundPass is
         uint256 tokenId
     ) internal virtual override {
         super._afterTokenTransfer(from, to, tokenId);
-        // Token has been minted
-        if (from == address(0)) {
-            _approve(msg.sender, tokenId);
-        }
-        // Token has been transferred, otherwise token has been burned
-        else if (to != address(0)) {
-            _approve(from, tokenId);
-        }
         _pause();
-    }
-
-    function tokenURI(uint256 tokenId)
-        public
-        view
-        override(ERC721, ERC721URIStorage)
-        returns (string memory)
-    {
-        return super.tokenURI(tokenId);
-    }
-
-    function _safeMint(address to, uint256 tokenId) internal virtual override {
-        _unpause();
-
-        super._safeMint(to, tokenId);
-    }
-
-    function _burn(uint256 tokenId)
-        internal
-        override(ERC721, ERC721URIStorage)
-    {
-        _unpause();
-
-        super._burn(tokenId);
     }
 
     function formatTokenURI(
@@ -244,5 +226,51 @@ contract DefundPass is
         );
 
         return _tokenURI;
+    }
+
+    function pause() public onlyRole(DEFAULT_ADMIN_ROLE) {
+        _pause();
+    }
+
+    function unpause() public onlyRole(DEFAULT_ADMIN_ROLE) {
+        _unpause();
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, AccessControlEnumerable)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
+
+    receive() external payable {
+        // Thank you for your donation! Unfortunately we cannot accept it :)
+        payable(msg.sender).transfer(msg.value);
+    }
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
+
+    function _safeMint(address to, uint256 tokenId) internal virtual override {
+        _unpause();
+
+        super._safeMint(to, tokenId);
+    }
+
+    function _burn(uint256 tokenId)
+        internal
+        override(ERC721, ERC721URIStorage)
+    {
+        _unpause();
+
+        super._burn(tokenId);
     }
 }

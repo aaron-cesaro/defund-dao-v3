@@ -86,8 +86,9 @@ Thanks to this hybrid approach all information concerning the Pass type and its 
 4. Pass ids start from 0. The id is incremented every time a new Pass is minted
 5. By design, Pass owners are not allowd to mint, transfer, or burn any Pass.
 6. Eeach Pass, as well as its owner, is unique by definition. No Pass can be owned by more than one DeFund member.
-7. Passes cannot be transferred, not even through a dedicated proposal. In case of a new member is selected and another member with same role (and League) is removed, the Pass from the removed member is burned, and the new Pass for the new member is minted.
-8. Each member can own at most one Pass. No member can have more than one role throughout the entire DeFund ecosystem. This applys to Leagues as well.
+7. Passes cannot be transferred, not even through a dedicated proposal. In case of a new member is selected and another member with same role is removed, the Pass from the removed member is burned, and the new Pass for the new member is minted.
+8. League members must be members, first. Then they can request to the appropriate League to become a League members through the minting of a new League Pass.
+8. Each member can own at most one Pass. No one can have more than one role throughout the entire DeFund ecosystem. This rules applies to everyone. The only "exception" are League members, who must wn 2 passes: one Standard pass, and one League pass.
 9. Roles can be added and deleted through the voting mechanism. Roles addition and deletion can be executed directly by the Smart Contract, after the appropriate proposal has been passed.
 
 #### Proposals
