@@ -7,7 +7,7 @@ import "../Pass/DefundPass.sol";
 contract ComplianceLeague {
     DefundPass public defundPass;
 
-    constructor(address _defundPass) {
+    constructor(address payable _defundPass) {
         defundPass = DefundPass(_defundPass);
     }
 }

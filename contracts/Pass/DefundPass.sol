@@ -20,9 +20,9 @@ contract DefundPass is
 
     string private standardPassImg;
 
-    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
-    bytes32 public constant MEMBER_ROLE = keccak256("MEMBER_ROLE");
     bytes32 public constant LEAGUE_ROLE = keccak256("LEAGUE_ROLE");
+
+    mapping(address => bool) private members;
 
     event PassMinted(address indexed _to, uint256 indexed _tokenId);
     event PassBurned(uint256 indexed _tokenId);
@@ -32,17 +32,16 @@ contract DefundPass is
         standardPassImg = _standardPassImg;
 
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(PAUSER_ROLE, msg.sender);
         _grantRole(LEAGUE_ROLE, msg.sender);
 
         _pause();
     }
 
-    function pause() public onlyRole(PAUSER_ROLE) {
+    function pause() public onlyRole(DEFAULT_ADMIN_ROLE) {
         _pause();
     }
 
-    function unpause() public onlyRole(PAUSER_ROLE) {
+    function unpause() public onlyRole(DEFAULT_ADMIN_ROLE) {
         _unpause();
     }
 
@@ -55,14 +54,24 @@ contract DefundPass is
         return super.supportsInterface(interfaceId);
     }
 
-    function mintPass(address to) public returns (uint256) {
+    receive() external payable {
+        // Thank you for your donation! But we cannot accept it :)
+        payable(msg.sender).transfer(msg.value);
+    }
+
+    function buyPass(address to) external payable returns (uint256) {
+        require(!isMember(to), "buyPass: address is already a member");
         require(
-            !hasRole(MEMBER_ROLE, to) && !hasRole(LEAGUE_ROLE, to),
-            "mintPass: address is already a member"
+            !hasRole(LEAGUE_ROLE, to),
+            "buyPass: members cannot have more than one role"
         );
+        require(
+            msg.value == 1,
+            "buyPass: wrong amount. DeFund Passes cost 1 AVAX each"
+        );
+
         _unpause();
 
-        _tokenIdCounter.increment();
         uint256 tokenId = _tokenIdCounter.current();
 
         _safeMint(to, tokenId);
@@ -74,7 +83,9 @@ contract DefundPass is
         );
         _setTokenURI(tokenId, _tokenURI);
 
-        _grantRole(MEMBER_ROLE, to);
+        members[to] = true;
+
+        _tokenIdCounter.increment();
 
         emit PassMinted(to, tokenId);
 
@@ -82,19 +93,16 @@ contract DefundPass is
     }
 
     function burnPass(uint256 _tokenId) public {
-        address _member = ownerOf(_tokenId);
+        address passOwner = ownerOf(_tokenId);
         require(
-            msg.sender == _member || hasRole(DEFAULT_ADMIN_ROLE, msg.sender),
+            msg.sender == passOwner || hasRole(DEFAULT_ADMIN_ROLE, msg.sender),
             "burnPass: pass cannot be burned by this address"
         );
-        require(
-            hasRole(MEMBER_ROLE, _member) && hasRole(LEAGUE_ROLE, _member),
-            "burnPass: invalid member"
-        );
+        require(isMember(passOwner), "burnPass: invalid member");
 
         _burn(_tokenId);
 
-        _revokeRole(MEMBER_ROLE, _member);
+        delete members[passOwner];
 
         emit PassBurned(_tokenId);
     }
@@ -105,17 +113,13 @@ contract DefundPass is
         string memory _league,
         string memory _role
     ) public onlyRole(LEAGUE_ROLE) returns (uint256) {
-        require(
-            hasRole(MEMBER_ROLE, to),
-            "mintLeaguePass: address is not a member"
-        );
+        require(isMember(to), "mintLeaguePass: address is not a member");
         require(
             !hasRole(LEAGUE_ROLE, to),
             "mintLeaguePass: address is already a league member"
         );
         _unpause();
 
-        _tokenIdCounter.increment();
         uint256 tokenId = _tokenIdCounter.current();
 
         _safeMint(to, tokenId);
@@ -126,6 +130,8 @@ contract DefundPass is
             _role
         );
         _setTokenURI(tokenId, _tokenURI);
+
+        _tokenIdCounter.increment();
 
         _grantRole(LEAGUE_ROLE, to);
 
@@ -152,6 +158,10 @@ contract DefundPass is
         _revokeRole(LEAGUE_ROLE, _member);
 
         emit PassBurned(_tokenId);
+    }
+
+    function isMember(address _address) public view returns (bool) {
+        return members[_address];
     }
 
     function _beforeTokenTransfer(

@@ -2,7 +2,11 @@ import brownie
 
 
 from scripts.helpful_scripts import get_account
-from scripts.deploy import deploy_defund_token, deploy_defund_governance
+from scripts.deploy import (
+    deploy_defund_pass,
+    deploy_defund_token,
+    deploy_defund_governance,
+)
 
 
 def main():
@@ -12,4 +16,7 @@ def main():
 def interact_with_governor():
     account = get_account()
     defund_token = deploy_defund_token()
-    defund_governor = deploy_defund_governance(defund_token.address)
+    defund_pass = deploy_defund_pass()
+    defund_governor = deploy_defund_governance(
+        defund_token.address, defund_pass.address
+    )

@@ -2,7 +2,6 @@ from brownie import (
     network,
     config,
     DefundPass,
-    DefundPassManager,
     VentureLeague,
     DeFundToken,
     DeFundGovernance,
@@ -10,7 +9,7 @@ from brownie import (
 from scripts.helpful_scripts import get_account, LOCAL_BLOCKCHAIN_ENVIRONMENTS
 
 
-def deploy_defund_pass():
+def deploy_defund_pass(pass_image):
     account = get_account()
     if (
         network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS
@@ -20,6 +19,7 @@ def deploy_defund_pass():
     else:
         print("Deploying DeFund Pass contract......")
         defund_pass = DefundPass.deploy(
+            pass_image,
             {"from": account},
             publish_source=config["networks"][network.show_active()].get(
                 "publish_source", False
@@ -28,25 +28,7 @@ def deploy_defund_pass():
     return defund_pass
 
 
-def deploy_defund_pass_manager(address):
-    account = get_account()
-    if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS and len(
-        DefundPassManager
-    ):
-        return DefundPassManager[-1]
-    else:
-        print("Deploying DeFund Pass Manager contract......")
-        defund_pass = DefundPassManager.deploy(
-            address,
-            {"from": account},
-            publish_source=config["networks"][network.show_active()].get(
-                "publish_source", False
-            ),
-        )
-    return defund_pass
-
-
-def deploy_venture_league(address, league_img, roles):
+def deploy_venture_league(address, league_img):
     account = get_account()
     if (
         network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS
@@ -58,7 +40,6 @@ def deploy_venture_league(address, league_img, roles):
         venture_league = VentureLeague.deploy(
             address,
             league_img,
-            roles,
             {"from": account},
             publish_source=config["networks"][network.show_active()].get(
                 "publish_source", False
@@ -85,7 +66,7 @@ def deploy_defund_token():
     return defund_token
 
 
-def deploy_defund_governance(address):
+def deploy_defund_governance(token_address, pass_address):
     account = get_account()
     if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS and len(
         DeFundGovernance
@@ -94,7 +75,8 @@ def deploy_defund_governance(address):
     else:
         print("Deploying DeFund PGovernance contract......")
         defund_governance = DeFundGovernance.deploy(
-            address,
+            token_address,
+            pass_address,
             {"from": account},
             publish_source=config["networks"][network.show_active()].get(
                 "publish_source", False

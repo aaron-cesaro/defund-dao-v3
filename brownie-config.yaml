@@ -1,10 +1,12 @@
 dependencies:
    - OpenZeppelin/openzeppelin-contracts@4.5.0-rc.0
+   - smartcontractkit/chainlink@1.1.0
    - Brechtpd/base64@1.1.0
 compiler:
   solc:
     remappings:
       - "@openzeppelin=OpenZeppelin/openzeppelin-contracts@4.5.0-rc.0"
+      - "@chainlink=smartcontractkit/chainlink@1.1.0"
       - "@brechtpd=Brechtpd/base64@1.1.0"
 
 dotenv: .env

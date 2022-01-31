@@ -14,3 +14,13 @@ def VENTURE_LEAGUE_ROLES():
 @pytest.fixture()
 def IMAGE_PATH():
     return "./img/{}.jpeg"
+
+
+@pytest.fixture()
+def STANDARD_PASS_IMAGE():
+    return "https://ipfs.io/ipfs/iuhO&BUIOYBiuybiuYUvUOYo/?filename=standard.jpeg"
+
+
+@pytest.fixture()
+def LEAGUE_PASS_IMAGE():
+    return "https://ipfs.io/ipfs/iuhO&BUIOYBiuybiuYUvUOYo/?filename=league.jpeg"

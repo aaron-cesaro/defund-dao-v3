@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/governance/extensions/GovernorCountingSimple.sol
 import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
 import "@openzeppelin/contracts/governance/extensions/GovernorVotesQuorumFraction.sol";
 import "../Token/DeFundToken.sol";
+import "../Pass/DefundPass.sol";
 
 contract DeFundGovernance is
     Governor,
@@ -15,7 +16,9 @@ contract DeFundGovernance is
     GovernorVotes,
     GovernorVotesQuorumFraction
 {
-    constructor(ERC20Votes _token)
+    DefundPass private defundPass;
+
+    constructor(ERC20Votes _token, address payable _defundPass)
         Governor("DeFundGovernance")
         GovernorSettings(
             1, /* 1 block */
@@ -24,7 +27,9 @@ contract DeFundGovernance is
         )
         GovernorVotes(_token)
         GovernorVotesQuorumFraction(5)
-    {}
+    {
+        defundPass = DefundPass(_defundPass);
+    }
 
     // The following functions are overrides required by Solidity.
 
@@ -70,6 +75,10 @@ contract DeFundGovernance is
         override(Governor, GovernorSettings)
         returns (uint256)
     {
+        require(
+            defundPass.isMember(msg.sender),
+            "proposalThreshold: address does not have the rights to vote"
+        );
         return super.proposalThreshold();
     }
 }
