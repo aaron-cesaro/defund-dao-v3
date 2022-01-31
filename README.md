@@ -83,7 +83,7 @@ Thanks to this hybrid approach all information concerning the Pass type and its 
 1. Each Role, also the standard _Member_ role, needs its own Pass to access and interact with the DeFund ecosystem.
 2. All Roles in the same League have the same Pass, that only differs for the attributes it contains in its metadata.
 3. Each pass is minted or burned through the voting mechanism.
-4. Pass ids start from 1 (there is no zero id). The id is incremented every time a new Pass is minted
+4. Pass ids start from 0. The id is incremented every time a new Pass is minted
 5. By design, Pass owners are not allowd to mint, transfer, or burn any Pass.
 6. Eeach Pass, as well as its owner, is unique by definition. No Pass can be owned by more than one DeFund member.
 7. Passes cannot be transferred, not even through a dedicated proposal. In case of a new member is selected and another member with same role (and League) is removed, the Pass from the removed member is burned, and the new Pass for the new member is minted.

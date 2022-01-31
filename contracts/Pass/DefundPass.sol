@@ -27,6 +27,7 @@ contract DefundPass is
     event PassMinted(address indexed _to, uint256 indexed _tokenId);
     event PassBurned(uint256 indexed _tokenId);
     event LeaguePassMinted(address indexed _member, uint256 indexed _tokenId);
+    event LeaguePassBurned(uint256 indexed _tokenId);
 
     constructor(string memory _standardPassImg) ERC721("DeFund Pass", "DFPS") {
         standardPassImg = _standardPassImg;
@@ -70,8 +71,6 @@ contract DefundPass is
             "buyPass: wrong amount. DeFund Passes cost 1 AVAX each"
         );
 
-        _unpause();
-
         uint256 tokenId = _tokenIdCounter.current();
 
         _safeMint(to, tokenId);
@@ -109,16 +108,15 @@ contract DefundPass is
 
     function mintLeaguePass(
         address to,
-        string memory _leaguePassImg,
-        string memory _league,
-        string memory _role
+        string calldata _leaguePassImg,
+        string calldata _league,
+        string calldata _role
     ) public onlyRole(LEAGUE_ROLE) returns (uint256) {
         require(isMember(to), "mintLeaguePass: address is not a member");
         require(
             !hasRole(LEAGUE_ROLE, to),
             "mintLeaguePass: address is already a league member"
         );
-        _unpause();
 
         uint256 tokenId = _tokenIdCounter.current();
 
@@ -157,7 +155,7 @@ contract DefundPass is
 
         _revokeRole(LEAGUE_ROLE, _member);
 
-        emit PassBurned(_tokenId);
+        emit LeaguePassBurned(_tokenId);
     }
 
     function isMember(address _address) public view returns (bool) {
@@ -203,6 +201,12 @@ contract DefundPass is
         returns (string memory)
     {
         return super.tokenURI(tokenId);
+    }
+
+    function _safeMint(address to, uint256 tokenId) internal virtual override {
+        _unpause();
+
+        super._safeMint(to, tokenId);
     }
 
     function _burn(uint256 tokenId)

@@ -1,0 +1,15 @@
+{
+    "name": "Defund Pass",
+    "description": "DeFund Pass",
+    "image": "https://ipfs.io/ipfs/QmTWNnR62R3we6LqSWK3uq1ED8HhVs7KE9XsWD4bvMv9hm?filename=venture.jpeg",
+    "attributes": [
+        {
+            "trait_type": "Membership",
+            "value": "Standard"
+        },
+        {
+            "trait_type": "Role",
+            "value": "Investor"
+        }
+    ]
+}

@@ -9,6 +9,12 @@ from brownie import (
 from scripts.helpful_scripts import get_account, LOCAL_BLOCKCHAIN_ENVIRONMENTS
 
 
+def main():
+    deploy_defund_pass(
+        "https://ipfs.io/ipfs/QmTWNnR62R3we6LqSWK3uq1ED8HhVs7KE9XsWD4bvMv9hm?filename=venture.jpeg"
+    )
+
+
 def deploy_defund_pass(pass_image):
     account = get_account()
     if (
