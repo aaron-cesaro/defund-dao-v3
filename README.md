@@ -14,12 +14,14 @@ With this premise, please, do not waste your time and money with this project if
 # Table of Contents
 1. [Introduction](#introduction)
 2. [Culture](#example2)
- 2\.1 [Inviolable Principles](#inviolable_principles)
- 2\.2 [Three-NOs](#three_nos)
+
+    2\.1 [Inviolable Principles](#inviolable_principles)
+
+    2\.2 [Three-NOs](#three_nos)
 3. [Structure](#structure)
  
 
-## <a name="introduction"> Introduction </a>
+## <a name="introduction"></a>Introduction
 DeFund is a democratic hedge fund that invests in blockchain based companies and protocols by purchasing participations in their business and networks using the assets provided by its members.
 
 Each member has the right to directly vote on which assets to buy, how to rebalance the current fund allocation, and how to improve the current investment policies, rules, and interactions.
@@ -40,10 +42,10 @@ Every single investment is proposed and voted by the DeFund members. No allocati
 
 DeFund is a DAO, meaning that all rules governing the fund are written as a code, stored in Smart Contracts, and no individual can ever change them by any means. The only way to make changes and improvements is through creating, voting, and implementing new proposals.
 
-## <a name="culture"> Culture </a>
+## <a name="culture"></a> Culture
 DeFund is and will always be public, democratic, and open to any kind of member. No restrictions of any kind will be ever applied except for the ones voted by its own members and compliant with the Inviolable Principles.
 
-### <a name="inviolable_principles"> Inviolable Principles </a>
+### <a name="inviolable_principles"></a> Inviolable Principles
 The Inviolable Principles are the moral and cultural foundation of DeFund. They're accepted by all DeFund’s members and they cannot be changed in any way. 
 
 The Inviolable Principles are the following:
@@ -54,9 +56,9 @@ The Inviolable Principles are the following:
 * DeFund must pay a minimum 5% annual fee to the Leagues.
 * Whoever performs criminal acts against other DeFund’s members or through DeFund must be irrevocably excluded from DeFund itself.
 
-### <a name="three_nos"> Three-NOs </a>
+### <a name="three_nos"></a> Three-NOs
 
-## <a name="structure"> Structure </a>
+## <a name="structure"></a> Structure
 DeFund it’s divided into three main components that interact with each other:
 
 * Treasury;
@@ -115,17 +117,23 @@ Thanks to this hybrid approach all information concerning the Pass type and its 
 
 #### Proposals
 Proposals are the enhancements and modifications requested by DeFund's members. 
-There are five different types of proposals, each one created with the aim to provide the most appriopriate and clear information about the specific motion:
+There are four different types of proposals, each one created with the aim of providing the most appriopriate and clear information about the specific motion:
+
+<div style="text-align:center">
+    <img src="./documentation/img/DeFund_proposals_creation.jpg" />
+</div>
 
 * Vision Proposals
 * Investment Proposals;
-* Governance Proposals;
-* Community Proposals; and
-* Application Proposals.
+* Governance Proposals; and
+* Community Proposals;
 
 
 Each proposal type represents a current state variation request on a specific area.
 ### Voting
 
+<div style="text-align:center">
+    <img src="./documentation/img/DeFund_voting.jpg" />
+</div>
 
 ## Token
