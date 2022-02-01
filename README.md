@@ -12,14 +12,14 @@ DeFund has not been created just to give its members the opportunity to make mon
 With this premise, please, do not waste your time and money with this project if you don't want to contribute to it, or if your intentions are not aligned with the "warning traits" mentioned above.
 
 # Table of Contents
-1. [Three-NOs culture](#example)
- 1\.1 [SubP](#...)
-2. [Introduction](#example2)
-3. [Inviolable Principles](#third-example)
-4. [Structure](#fourth-examplehttpwwwfourthexamplecom)
+1. [Introduction](#introduction)
+2. [Culture](#example2)
+ 2\.1 [Inviolable Principles](#inviolable_principles)
+ 2\.2 [Three-NOs](#three_nos)
+3. [Structure](#structure)
  
 
-## Introduction
+## <a name="introduction"> Introduction </a>
 DeFund is a democratic hedge fund that invests in blockchain based companies and protocols by purchasing participations in their business and networks using the assets provided by its members.
 
 Each member has the right to directly vote on which assets to buy, how to rebalance the current fund allocation, and how to improve the current investment policies, rules, and interactions.
@@ -40,10 +40,10 @@ Every single investment is proposed and voted by the DeFund members. No allocati
 
 DeFund is a DAO, meaning that all rules governing the fund are written as a code, stored in Smart Contracts, and no individual can ever change them by any means. The only way to make changes and improvements is through creating, voting, and implementing new proposals.
 
-## Culture
+## <a name="culture"> Culture </a>
 DeFund is and will always be public, democratic, and open to any kind of member. No restrictions of any kind will be ever applied except for the ones voted by its own members and compliant with the Inviolable Principles.
 
-### Inviolable Principles
+### <a name="inviolable_principles"> Inviolable Principles </a>
 The Inviolable Principles are the moral and cultural foundation of DeFund. They're accepted by all DeFund’s members and they cannot be changed in any way. 
 
 The Inviolable Principles are the following:
@@ -54,9 +54,9 @@ The Inviolable Principles are the following:
 * DeFund must pay a minimum 5% annual fee to the Leagues.
 * Whoever performs criminal acts against other DeFund’s members or through DeFund must be irrevocably excluded from DeFund itself.
 
-### Three-NOs
+### <a name="three_nos"> Three-NOs </a>
 
-## Structure
+## <a name="structure"> Structure </a>
 DeFund it’s divided into three main components that interact with each other:
 
 * Treasury;
