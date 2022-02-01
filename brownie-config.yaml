@@ -20,3 +20,5 @@ networks:
     publish_source: False
   rinkeby:
     publish_source: True
+  avax-test:
+    publish_source: True

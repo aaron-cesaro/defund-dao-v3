@@ -21,8 +21,6 @@ contract DeFundToken is
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
-    bytes32 public constant PASS_PROVIDER_ROLE =
-        keccak256("PASS_PROVIDER_ROLE");
 
     uint256 private membersOwnership;
 
@@ -35,7 +33,6 @@ contract DeFundToken is
         _grantRole(PAUSER_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender);
         _grantRole(BURNER_ROLE, msg.sender);
-        _grantRole(PASS_PROVIDER_ROLE, msg.sender);
     }
 
     function getMembersOwnership() public view returns (uint256) {

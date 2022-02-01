@@ -41,7 +41,7 @@ def test_contract_is_paused_after_burning(STANDARD_PASS_IMAGE):
     assert state_after_minting == state_before_minting == state_after_burning
 
 
-def test_badge_is_minted_successfully(STANDARD_PASS_IMAGE):
+def test_standard_pass_is_minted_successfully(STANDARD_PASS_IMAGE):
     # Arrange
     if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
         pytest.skip()
@@ -56,7 +56,7 @@ def test_badge_is_minted_successfully(STANDARD_PASS_IMAGE):
     assert defund_pass.ownerOf(tx_award.return_value) == pass_buyer
 
 
-def test_badge_is_burned_successfully(STANDARD_PASS_IMAGE):
+def test_standard_pass_is_burned_successfully(STANDARD_PASS_IMAGE):
     # Arrange
     if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
         pytest.skip()
@@ -116,20 +116,6 @@ def test_member_can_have_just_one_badge(STANDARD_PASS_IMAGE):
     # Assert
     with pytest.raises(exceptions.VirtualMachineError):
         defund_pass.buyPass(pass_buyer, {"from": account, "value": 1})
-
-
-def test_badge_is_approved_by_transaction_sender_after_minting(STANDARD_PASS_IMAGE):
-    # Arrange
-    if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
-        pytest.skip()
-    account = get_account()
-    defund_pass = deploy_defund_pass(STANDARD_PASS_IMAGE)
-    pass_buyer = get_account(1)
-    # Act
-    tx_award = defund_pass.buyPass(pass_buyer, {"from": account, "value": 1})
-    tx_award.wait(1)
-    # Assert
-    assert defund_pass.getApproved(tx_award.return_value) == account
 
 
 def test_badge_get_approved_raises_exception_after_burned(STANDARD_PASS_IMAGE):

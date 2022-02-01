@@ -10,9 +10,7 @@ from scripts.helpful_scripts import get_account, LOCAL_BLOCKCHAIN_ENVIRONMENTS
 
 
 def main():
-    deploy_defund_pass(
-        "https://ipfs.io/ipfs/QmTWNnR62R3we6LqSWK3uq1ED8HhVs7KE9XsWD4bvMv9hm?filename=venture.jpeg"
-    )
+    deploy_defund_pass("aaa")
 
 
 def deploy_defund_pass(pass_image):
@@ -24,12 +22,12 @@ def deploy_defund_pass(pass_image):
         return DefundPass[-1]
     else:
         print("Deploying DeFund Pass contract......")
+        if network.show_active() == "avax-test":
+            verify = False
+        else:
+            verify = config["networks"][network.show_active()]["publish_source"]
         defund_pass = DefundPass.deploy(
-            pass_image,
-            {"from": account},
-            publish_source=config["networks"][network.show_active()].get(
-                "publish_source", False
-            ),
+            pass_image, {"from": account}, publish_source=verify
         )
     return defund_pass
 

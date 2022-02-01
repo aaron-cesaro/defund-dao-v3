@@ -39,7 +39,7 @@ contract DefundPass is
         standardPassImg = _standardPassImg;
 
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(LEAGUE_ROLE, msg.sender);
+        _grantRole(LEAGUE_ROLE, msg.sender); // to check
 
         _pause();
     }

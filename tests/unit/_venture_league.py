@@ -3,7 +3,6 @@ import pytest
 from brownie import network, exceptions, accounts
 from scripts.helpful_scripts import (
     get_account,
-    upload_to_ipfs,
     LOCAL_BLOCKCHAIN_ENVIRONMENTS,
 )
 from scripts.deploy import (
@@ -16,7 +15,6 @@ def test_member_not_exists(STANDARD_PASS_IMAGE, LEAGUE_PASS_IMAGE):
     # Arrange
     if network.show_active() not in LOCAL_BLOCKCHAIN_ENVIRONMENTS:
         pytest.skip()
-    account = get_account()
     defund_pass = deploy_defund_pass(STANDARD_PASS_IMAGE)
 
     venture_league = deploy_venture_league(defund_pass.address, LEAGUE_PASS_IMAGE)

@@ -43,7 +43,9 @@ DeFund it’s divided into three main components that interact with each other:
 * Leagues; and
 * Governance.
 
-<img src="./img/structure.png" width=100%>
+<div style="text-align:center">
+    <img src="./Documentation/img/DeFund_structure.jpg" />
+</div>
 
 Each component is represented by one or more Smart Contracts which manage all roles and interactions between the different parts.
 
@@ -57,7 +59,9 @@ Leagues are the DeFund implementation, monitoring, and regulatory body. Their pr
 
 Each League has a specific purpose that is directly related to a single company area.
 
-<img src="./img/leagues.png" width=100%>
+<div style="text-align:center">
+    <img src="./img/leagues.png" width=100%>
+</div>
 
 There are four different types of Leagues: 
 * Treasury League;

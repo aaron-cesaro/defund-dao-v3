@@ -8,7 +8,7 @@ import "../Pass/DefundPass.sol";
 contract VentureLeague is AccessControlEnumerable {
     bytes32 public constant VENTURE_ADMIN_ROLE =
         keccak256("VENTURE_ADMIN_ROLE");
-    bytes32 public constant ANALYST_ROLE = keccak256("ANALYST_ROLE");
+
     DefundPass public defundPass;
 
     string private ventureLeagueImg;
@@ -29,7 +29,6 @@ contract VentureLeague is AccessControlEnumerable {
 
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(VENTURE_ADMIN_ROLE, msg.sender);
-        _grantRole(ANALYST_ROLE, msg.sender);
     }
 
     function addLeagueMember(address _member)
