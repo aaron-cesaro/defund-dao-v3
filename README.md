@@ -13,12 +13,32 @@ With this premise, please, do not waste your time and money with this project if
 
 # Table of Contents
 1. [Introduction](#introduction)
+
 2. [Culture](#example2)
 
-    2\.1 [Inviolable Principles](#inviolable_principles)
+    2.1 [Inviolable Principles](#inviolable_principles)
 
-    2\.2 [Three-NOs](#three_nos)
+    2.2 [3-NOs Value](#3_nos_value)
+
 3. [Structure](#structure)
+
+    3.1 [Treasury](#treasury)
+
+    3.2 [Leagues](#leagues)
+
+    3.3 [Treasury League](#treasury_league)
+
+    3.4 [Compliance League](#compliance_league)
+
+    3.5 [Development League](#development_league)
+
+    3.6 [Governance](#governance)
+
+    3.6 [Pass](#pass)
+
+4. [Proposals](#proposals)
+
+5. [Voting](#voting)
  
 
 ## <a name="introduction"></a>Introduction
@@ -43,7 +63,7 @@ Every single investment is proposed and voted by the DeFund members. No allocati
 DeFund is a DAO, meaning that all rules governing the fund are written as a code, stored in Smart Contracts, and no individual can ever change them by any means. The only way to make changes and improvements is through creating, voting, and implementing new proposals.
 
 ## <a name="culture"></a> Culture
-DeFund is and will always be public, democratic, and open to any kind of member. No restrictions of any kind will be ever applied except for the ones voted by its own members and compliant with the Inviolable Principles.
+
 
 ### <a name="inviolable_principles"></a> Inviolable Principles
 The Inviolable Principles are the moral and cultural foundation of DeFund. They're accepted by all DeFund’s members and they cannot be changed in any way. 
@@ -51,12 +71,26 @@ The Inviolable Principles are the moral and cultural foundation of DeFund. They'
 The Inviolable Principles are the following:
 
 * DeFund cannot invest in projects related to humans and organs trafficking, arms dealing, drugs dealing, prostitution exploitation, child pornography and other activities contrary to public order, security and human dignity.
-* No one can own more than 0.25% of the total voting rights.
 * DeFund can be dissolved at any time by a majority of 51% of the members only.
 * DeFund must pay a minimum 5% annual fee to the Leagues.
 * Whoever performs criminal acts against other DeFund’s members or through DeFund must be irrevocably excluded from DeFund itself.
 
-### <a name="three_nos"></a> Three-NOs
+### <a name="3_nos_value"></a> 3-NOs Value
+The culture and all rules enforced by the DeFund protocol find their root on the following three values:
+* __#1 NO entry barriers__
+DeFund is and will always be public, democratic, and open to any kind of member. No restrictions of any kind will be ever applied except for the ones voted by its own members and compliant with the Inviolable Principles.
+
+Following this value, everyone can become a member, but only who truly commit to improve DeFund can be eligible to be part of the Leagues and therefore make a huge impact on the protocol itself.
+
+* __#2 NO titles__
+Do you have a piece of paper that certifies that you're good at a certain task? Good, leave it at home. Here everyone starts at the same level. If you really have great skills at something you will lead the way in no time.
+
+This value simply states that meritocracy is king on DeFund. Titles don't matter and involvement and committment are always rewarded.
+
+* __#3 NO third chances__
+Everyone can make a mistake and therefore everyone deserves a second chance, but not a third one. 
+
+This value applies to everything, excluding the case that the Inviolable Principles are broken.
 
 ## <a name="structure"></a> Structure
 DeFund it’s divided into three main components that interact with each other:
@@ -73,10 +107,10 @@ Each component is represented by one or more Smart Contracts which manage all ro
 
 To better understand how each part works, and the mechanics governing the interactions between them, we’re going through each component of the following schema
 
-### Treasury
+### <a name="treasury"></a> Treasury
 The Treasury is used for paying for expenses, fund new projects, and reward members, Leagues and Operators.
 
-### Leagues
+### <a name="leagues"></a> Leagues
 Leagues are the DeFund implementation, monitoring, and regulatory body. Their primary objective is to enforce the fund's rules and implement the approved proposals by ensuring the highest standards in terms of transparency, quality, and verification.
 
 Each League has a specific purpose that is directly related to a single company area.
@@ -90,14 +124,14 @@ There are three different types of Leagues:
 * Compliance League; and
 * Development League.
 
-#### Treasury League
-#### Compliance League
-#### Development League
+#### <a name="treasury_league"></a> Treasury League
+#### <a name="compliance_league"></a> Compliance League
+#### <a name="development_league"></a> Development League
 
 
-### Governance
+### <a name="governance"></a> Governance
 
-#### Pass
+#### <a name="pass"></a> Pass
 ##### Description
 The DeFund Pass is a NFT based badge that allows members to make proposals, vote, join specific and regulated channels on the Discord server, and in general to make an impact on the DeFund ecosystem. Each NFT contains its own information metadata that resides both on-chain and on IPFS.
 
@@ -115,7 +149,7 @@ Thanks to this hybrid approach all information concerning the Pass type and its 
 8. Each member can own at most one Pass. No one can have more than one role throughout the entire DeFund ecosystem. This rules applies to everyone. The only "exception" are League members, who must wn 2 passes: one Standard pass, and one League pass.
 9. Roles can be added and deleted through the voting mechanism. Roles addition and deletion can be executed directly by the Smart Contract, after the appropriate proposal has been passed.
 
-#### Proposals
+#### <a name="proposals"></a> Proposals
 Proposals are the enhancements and modifications requested by DeFund's members. 
 There are four different types of proposals, each one created with the aim of providing the most appriopriate and clear information about the specific motion:
 
@@ -130,7 +164,7 @@ There are four different types of proposals, each one created with the aim of pr
 
 
 Each proposal type represents a current state variation request on a specific area.
-### Voting
+### <a name="voting"></a> Voting
 
 <div style="text-align:center">
     <img src="./documentation/img/DeFund_voting.jpg" width=90% />
