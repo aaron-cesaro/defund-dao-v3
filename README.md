@@ -66,7 +66,7 @@ DeFund it’s divided into three main components that interact with each other:
 * Governance.
 
 <div style="text-align:center">
-    <img src="./documentation/img/DeFund_structure.jpg" />
+    <img src="./documentation/img/DeFund_structure.jpg" width=80% />
 </div>
 
 Each component is represented by one or more Smart Contracts which manage all roles and interactions between the different parts.
@@ -82,7 +82,7 @@ Leagues are the DeFund implementation, monitoring, and regulatory body. Their pr
 Each League has a specific purpose that is directly related to a single company area.
 
 <div style="text-align:center">
-    <img src="./documentation/img/DeFund_leagues.jpg" />
+    <img src="./documentation/img/DeFund_leagues.jpg" width=70% />
 </div>
 
 There are three different types of Leagues: 
@@ -120,7 +120,7 @@ Proposals are the enhancements and modifications requested by DeFund's members.
 There are four different types of proposals, each one created with the aim of providing the most appriopriate and clear information about the specific motion:
 
 <div style="text-align:center">
-    <img src="./documentation/img/DeFund_proposals_creation.jpg" />
+    <img src="./documentation/img/DeFund_proposals_creation.jpg" width=70% />
 </div>
 
 * Vision Proposals
@@ -133,7 +133,7 @@ Each proposal type represents a current state variation request on a specific ar
 ### Voting
 
 <div style="text-align:center">
-    <img src="./documentation/img/DeFund_voting.jpg" />
+    <img src="./documentation/img/DeFund_voting.jpg" width=90% />
 </div>
 
 ## Token
