@@ -3,6 +3,7 @@
 
 ## Forewords
 Before reading a single word of this White Paper there is something you have to understand:
+
 __DeFund is not for people with a "get rich quick" mindset__.
 
 I created this protocol to give its members job flexibility and financial freedom. If you want to make some easy money with no effort, this is not the place for you. If you're here to "flip coins" for a quick profit, this is not the place for you. If you believe that results can be achieved without sacrifice, guess what, THIS IS NOT THE PLACE FOR YOU.
@@ -38,7 +39,16 @@ With this premise, please, do not waste your time and money with this project if
 
 4. [Proposals](#proposals)
 
+    4.1 [Investment Proposals](#investment_proposals)
+
+    4.2 [Governance Proposals](#governance_proposals)
+
+    4.3 [Vision Proposals](#vision_proposals)
+
 5. [Voting](#voting)
+
+6. [Token](#token)
+    6.1 [Staking](#staking)
  
 
 ## <a name="introduction"></a>Introduction
@@ -149,19 +159,21 @@ Thanks to this hybrid approach all information concerning the Pass type and its 
 8. Each member can own at most one Pass. No one can have more than one role throughout the entire DeFund ecosystem. This rules applies to everyone. The only "exception" are League members, who must wn 2 passes: one Standard pass, and one League pass.
 9. Roles can be added and deleted through the voting mechanism. Roles addition and deletion can be executed directly by the Smart Contract, after the appropriate proposal has been passed.
 
-#### <a name="proposals"></a> Proposals
+### <a name="proposals"></a> Proposals
 Proposals are the enhancements and modifications requested by DeFund's members. 
-There are four different types of proposals, each one created with the aim of providing the most appriopriate and clear information about the specific motion:
+There are three different types of proposals, each one created with the aim of providing the most appriopriate and clear information about the specific motion:
 
 <div style="text-align:center">
     <img src="./documentation/img/DeFund_proposals_creation.jpg" width=70% />
 </div>
 
-* Vision Proposals
 * Investment Proposals;
 * Governance Proposals; and
-* Community Proposals;
+* Vision Proposals
 
+#### <a name="invetment_proposals"></a> Investment Proposals
+#### <a name="governance_proposals"></a> Governance Proposals
+#### <a name="vision_proposals"></a> Vision Proposals
 
 Each proposal type represents a current state variation request on a specific area.
 ### <a name="voting"></a> Voting
@@ -170,4 +182,5 @@ Each proposal type represents a current state variation request on a specific ar
     <img src="./documentation/img/DeFund_voting.jpg" width=90% />
 </div>
 
-## Token
+## <a name="token"></a> Token
+### <a name="staking"></a> Staking
