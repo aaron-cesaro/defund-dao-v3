@@ -2,7 +2,7 @@
 *Version 0.0.5*
 
 ## Forewords
-Before reading a single word of this White Paper there is something you have to understand:
+Before reading a single word of this White Paper there is something you need to understand:
 
 __DeFund is not for people with a "get rich quick" mindset__.
 
@@ -48,11 +48,12 @@ With this premise, please, do not waste your time and money with this project if
 5. [Voting](#voting)
 
 6. [Token](#token)
+
     6.1 [Staking](#staking)
  
 
 ## <a name="introduction"></a>Introduction
-DeFund is a democratic hedge fund that invests in blockchain based companies and protocols by purchasing participations in their business and networks using the assets provided by its members.
+DeFund is a democratic investment fund that invests in blockchain based companies and protocols by purchasing participations in their business and networks using the assets provided by its members.
 
 Each member has the right to directly vote on which assets to buy, how to rebalance the current fund allocation, and how to improve the current investment policies, rules, and interactions.
 
@@ -183,4 +184,25 @@ Each proposal type represents a current state variation request on a specific ar
 </div>
 
 ## <a name="token"></a> Token
+The DEVC token is a standard ERC-20 token capped to 280,389,000 units.
+
 ### <a name="staking"></a> Staking
+ 
+The initial APY will be 10,000%. This huge number will be halved at regualar intervals, that is, every 180 days starting from the approval of the Vision Proposal.
+Rewards are calculated on a monthly basis and the members can earn the full APY only if they have voted for every single proposal. 
+
+Calculate staking reward:
+
+```
+t0 = DeFund launch date
+tn = Current date
+s = Staked amount
+Rm = Monthly total stakding reward 
+h = halves till now
+p = total proposals
+v = voted proposals
+
+f(h) = 2^h if t0 - tn mod 180 = 0; 2^h-1 otherwise
+
+Rm = {[(10,000% * s) / f(h)] / 12} * (v/p)
+```
