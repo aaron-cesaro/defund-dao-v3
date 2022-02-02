@@ -194,18 +194,29 @@ Rewards are calculated on a monthly basis and members can earn the full APY only
 Calculate staking reward:
 
 <img src="./documentation/img/staking/staking_t0.jpg"/> = Vision Proposal passing date
+
 <img src="./documentation/img/staking/staking_tn.jpg"/> = Current date
+
 <img src="./documentation/img/staking/staking_sn.jpg"/> = Staked amount at month *n*
+
 <img src="./documentation/img/staking/staking_rmn.jpg"/> = Staking reward at month *n*
-<img src="./documentation/img/staking/staking_h.jpg"/> = halves till now
-<img src="./documentation/img/staking/staking_pn-1.jpg"/> = total proposals at month *n-1*
-<img src="./documentation/img/staking/staking_vn-1.jpg"/> = total voted proposals at month *n-1*
+
+<img src="./documentation/img/staking/staking_h.jpg"/> = Current halving value
+
+<img src="./documentation/img/staking/staking_pn-1.jpg"/> = Total proposals at month *n-1*
+
+<img src="./documentation/img/staking/staking_vn-1.jpg"/> = Total voted proposals at month *n-1*
 
 <div >
     <img src="./documentation/img/staking/staking_halving.jpg" width=28% />
+    </br>
+    <img src="./documentation/img/staking/staking_h_set.jpg"/>
+    </br>
+    </br>
 </div>
 
-Therefore, to calculate the annual staking amount use the following formula:
+Therefore, it is possible to calculate the staking reward at month *n* using the following formula:
+
 <div style="text-align:center">
     <img src="./documentation/img/staking/staking_formula.jpg" width=20% />
     </br>
@@ -216,12 +227,12 @@ The following chart shows how APY decreases over the months:
 
 <div style="text-align:center">
     </br>
-    <img src="./documentation/img/staking/apy.png" />
+    <img src="./documentation/img/staking/staking_apy.png" />
 </div>
 
-And finally here's the total monthly staking rewards provided by DeFund. The model takes into account a member acquisition starting from 105% for the first 2 months, and then gradually decreasing until reaching 0.001% over a period of 72 months (6 years);
+And finally here's the total monthly staking rewards provided by DeFund. The model takes into account a member acquisition rate starting from 105% for the first 2 months, and then gradually decreasing until reaching 0.001% over a period of 100 months (~8 years);
 
 <div style="text-align:center">
     </br>
-    <img src="./documentation/img/staking/total_staking_reward.png" />
+    <img src="./documentation/img/staking/staking_reward.png" />
 </div>
