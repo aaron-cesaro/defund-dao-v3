@@ -188,7 +188,7 @@ The DEVC token is a standard ERC-20 token capped to 280,389,000 units.
 
 ### <a name="staking"></a> Staking
  
-The initial APY will be 1,000%. This huge number will be halved at regualar intervals, that is, every 180 days starting from the approval of the Vision Proposal.
+The initial APY will be 1,000%. This huge number will be halved at regualar intervals, that is, every 120 days starting from the approval of the Vision Proposal.
 Rewards are calculated on a monthly basis and members can earn the full APY only if they have voted for every single proposal in the past month. In fact, the monthly reward is multiplied by the % of voted proposals over the total proposals of the 0preceding month.
 
 Calculate staking reward:
