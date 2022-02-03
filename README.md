@@ -237,7 +237,7 @@ Here's the total monthly staking rewards of a simgle DeFund member over a period
     <img src="./documentation/img/staking/staking_reward.png" />
 </div>
 
-Finally, here's the total staking reserve usage over a period of 9 years. The model takes into account a member acquisition rate starting from 105% for the first 2 months, and then gradually decreasing until reaching 0.001% over a period of 100 months (~8 years);
+Finally, here's the total staking reserve usage over a period of 9 years. The model takes into account a member average acquisition rate of 9.105% over the same period;
 
 <div style="text-align:center">
     </br>
