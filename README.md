@@ -188,8 +188,8 @@ The DEVC token is a standard ERC-20 token capped to 280,389,000 units.
 
 ### <a name="staking"></a> Staking
  
-The initial APY will be 1,000%. This huge number will be halved at regualar intervals, that is, every 120 days starting from the approval of the Vision Proposal.
-Rewards are calculated on a monthly basis and members can earn the full APY only if they have voted for every single proposal in the past month. In fact, the monthly reward is multiplied by the % of voted proposals over the total proposals of the 0preceding month.
+The initial APY will be 250%. This huge number will be halved at regualar intervals, that is, every 365 days, starting from the end of the fundrising period.
+Rewards are calculated on a monthly basis and members can earn the full APY only if they have voted for every single proposal in the past month. In fact, the monthly reward is multiplied by the % of voted proposals over the total proposals created during the preceding month.
 
 Calculate staking reward:
 
@@ -230,9 +230,16 @@ The following chart shows how APY decreases over the months:
     <img src="./documentation/img/staking/staking_apy.png" />
 </div>
 
-And finally here's the total monthly staking rewards provided by DeFund. The model takes into account a member acquisition rate starting from 105% for the first 2 months, and then gradually decreasing until reaching 0.001% over a period of 100 months (~8 years);
+Here's the total monthly staking rewards of a simgle DeFund member over a period of 9 years. The model takes into account a member doing a one time buy of 20 tokens, on the launch date, and a participation rate of 68% during the entire period;
 
 <div style="text-align:center">
     </br>
     <img src="./documentation/img/staking/staking_reward.png" />
+</div>
+
+Finally, here's the total staking reserve usage over a period of 9 years. The model takes into account a member acquisition rate starting from 105% for the first 2 months, and then gradually decreasing until reaching 0.001% over a period of 100 months (~8 years);
+
+<div style="text-align:center">
+    </br>
+    <img src="./documentation/img/staking/staking_reserve_usage.png" />
 </div>
