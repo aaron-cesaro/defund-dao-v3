@@ -2,6 +2,8 @@
 *Version 0.0.5*
 
 ## Forewords
+
+### Are you the right person?
 Before reading a single word of this White Paper there is something you need to understand:
 
 __DeFund is not for people with a "get rich quick" mindset__.
@@ -11,6 +13,22 @@ I created this protocol to give its members job flexibility and financial freedo
 DeFund has not been created just to give its members the opportunity to make money. Its vision is to deeply impact the way they work and interact, giving them the chance to shape the company the way they want.
 
 With this premise, please, do not waste your time and money with this project if you don't want to contribute to it, or if your intentions are not aligned with the "warning traits" mentioned above.
+
+### How could that happend?
+The world of finance is broken. Everybody knows it, but no one is doing anything to change the current situation. How can a single person or a small group of people fight against the biggest hedge funds and investment banks? 
+
+They tell us this is a free market where equality and fairness are kings, but we know that this is not the reality. 
+The famous Wall Street Bets Reddit group highlighted this reality by convincing many people to go againt the big players, and what was the final result? Well, they stopped the trading of certain stocks to the public, giving to funds and banks the time to limit their losses. Is this the definition of free market? 
+
+Some of you would say: "That's awful man, but hey, what can we do? 
+We know the answer, and we can bet you know it too. 
+
+__If you can't fight them, join them and fight from the inside.__
+
+So, here we are, creating the hugest army of people willing to fight the market players by acquiring the biggest share of the market ever imagined. Think about it, big players are just a bunch of rich people throwing their money to the market to control it. Why can't we create an enormous amount of people that join the fight to control the stock market? 
+Wouldn't be fairer for the market to come back to the average investors, not the banks and funds?
+
+__Are you willing to join the fight?__
 
 # Table of Contents
 1. [Introduction](#introduction)
@@ -53,7 +71,7 @@ With this premise, please, do not waste your time and money with this project if
  
 
 ## <a name="introduction"></a>Introduction
-DeFund is a democratic investment fund that invests in blockchain based companies and protocols by purchasing participations in their business and networks using the assets provided by its members.
+DeFund is a democratic investment fund that invests in the traditional stock market. It aims to acquire the highest participations in companies and businesses using the assets provided by its members. The more business acquired, the more defund members can have control over each company direction and the market as whole. 
 
 Each member has the right to directly vote on which assets to buy, how to rebalance the current fund allocation, and how to improve the current investment policies, rules, and interactions.
 
@@ -188,7 +206,7 @@ The DEVC token is a standard ERC-20 token capped to 280,389,000 units.
 
 ### <a name="staking"></a> Staking
  
-The initial APY will be 250%. This huge number will be halved at regualar intervals, that is, every 365 days, starting from the end of the fundrising period.
+The initial APY will be 250%. This number will be halved at regualar intervals, that is, every 365 days, starting from the end of the fundrising period.
 Rewards are calculated on a monthly basis and members can earn the full APY only if they have voted for every single proposal in the past month. In fact, the monthly reward is multiplied by the % of voted proposals over the total proposals created during the preceding month.
 
 Calculate staking reward:
